@@ -7,18 +7,28 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 """
 
-# Make a Hero class to store the health and power of the hero, and make a Goblin class to store the health and power of the goblin. Use a hero object in place of the variables hero.health and hero.power and use a goblin object in place of the variables goblin.health and goblin.power all through out the app.
+# Step 1: Make a Hero class to store the health and power of the hero, and make a Goblin class to store the health and power of the goblin. Use a hero object in place of the variables hero_health and hero_power and use a goblin object in place of the variables goblin_health and goblin_power all through out the app.
 
 def main():
 
-    class Character:
-        def __init__(self, name, health, power):
-            self.name = name
-            self.health = health
-            self.power = power
+    # class Character:
+    #     def __init__(self, name, health, power):
+    #         self.name = name
+    #         self.health = health
+    #         self.power = power
 
-    hero = Character('hero', 10, 5)
-    goblin = Character('goblin', 6, 2)
+    class Hero:
+        def __init__(self):
+            self.health = 10
+            self.power = 5
+
+    class Goblin:
+        def __init__(self):
+            self.health = 6
+            self.power = 2
+
+    hero = Hero()
+    goblin = Goblin()
 
 
     while goblin.health > 0 and hero.health > 0:
@@ -29,7 +39,7 @@ def main():
         print("1. fight goblin")
         print("2. do nothing")
         print("3. flee")
-        print("> ",)
+        print("> ", end='')
         user_input = input()
         if user_input == "1":
             # Hero attacks goblin

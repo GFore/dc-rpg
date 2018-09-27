@@ -7,7 +7,11 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 """
 
-# Step 3: Similarly, take the code for the goblin attacking the hero and extract it into a method (also call it attack) of the Goblin class. Replace the existing code with a call to the attack method. It should look like goblin.attack(hero)
+# Step 4: Refactor the while condition:
+#       while goblin.health > 0 and hero.health > 0:
+# to
+#       while goblin.alive() and hero.alive():
+# The health checks should be moved to within the alive methods of Hero and Goblin respectively.
 
 def main():
 
@@ -26,6 +30,9 @@ def main():
             enemy.health -= self.power
             print("You do %d damage to the goblin." % self.power)
 
+        def alive(self):
+            return self.health > 0
+
     class Goblin:
         def __init__(self):
             self.health = 6
@@ -35,11 +42,14 @@ def main():
             enemy.health -= self.power
             print("The goblin does %d damage to you." % self.power)
 
+        def alive(self):
+            return self.health > 0
+
     hero = Hero()
     goblin = Goblin()
 
 
-    while goblin.health > 0 and hero.health > 0:
+    while goblin.alive() and hero.alive():
         print("You have %d health and %d power." % (hero.health, hero.power))
         print("The goblin has %d health and %d power." % (goblin.health, goblin.power))
         print()
@@ -51,7 +61,7 @@ def main():
         user_input = input()
         if user_input == "1":               # Hero attacks goblin
             hero.attack(goblin)
-            if goblin.health <= 0:
+            if not goblin.alive():
                 print("The goblin is dead.")
         elif user_input == "2":
             pass
@@ -61,9 +71,9 @@ def main():
         else:
             print("Invalid input %r" % user_input)
 
-        if goblin.health > 0:               # Goblin attacks hero
+        if goblin.alive():               # Goblin attacks hero
             goblin.attack(hero)
-            if hero.health <= 0:
+            if not hero.alive():
                 print("You are dead.")
 
 main()

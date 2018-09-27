@@ -7,7 +7,7 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 """
 
-# Step 2: Take the code for the hero attacking the goblin and extract it into a method (call it attack) of the Hero class. Replace the existing code with a call to the attack method. Hint: attack should take in the goblin (enemy) as a parameter: hero.attack(goblin)
+# Step 3: Similarly, take the code for the goblin attacking the hero and extract it into a method (also call it attack) of the Goblin class. Replace the existing code with a call to the attack method. It should look like goblin.attack(hero)
 
 def main():
 
@@ -30,6 +30,10 @@ def main():
         def __init__(self):
             self.health = 6
             self.power = 2
+
+        def attack(self, enemy):
+            enemy.health -= self.power
+            print("The goblin does %d damage to you." % self.power)
 
     hero = Hero()
     goblin = Goblin()
@@ -57,10 +61,8 @@ def main():
         else:
             print("Invalid input %r" % user_input)
 
-        if goblin.health > 0:
-            # Goblin attacks hero
-            hero.health -= goblin.power
-            print("The goblin does %d damage to you." % goblin.power)
+        if goblin.health > 0:               # Goblin attacks hero
+            goblin.attack(hero)
             if hero.health <= 0:
                 print("You are dead.")
 

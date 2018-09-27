@@ -7,21 +7,17 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 """
 
-# Step 5: Take the code for printing the health status of the hero and move it into a method called print_status of Hero. Do the same for the goblin.
+# Step 6: Do you see a lot of duplicated or similar code between Hero and Goblin? What if you can share the duplicated code between them? You can by using inheritance! Create a new class called Character and make both Hero and Goblin inherit from it.
 
 def main():
 
-    # class Character:
-    #     def __init__(self, name, health, power):
-    #         self.name = name
-    #         self.health = health
-    #         self.power = power
+    class Character:
+        def __init__(self, name, health, power):
+            self.name = name
+            self.health = health
+            self.power = power
 
-    class Hero:
-        def __init__(self):
-            self.health = 10
-            self.power = 5
-
+    class Hero(Character):
         def attack(self, enemy):
             enemy.health -= self.power
             print("You do %d damage to the goblin." % self.power)
@@ -35,11 +31,7 @@ def main():
             else:
                 print("You are dead.")
 
-    class Goblin:
-        def __init__(self):
-            self.health = 6
-            self.power = 2
-
+    class Goblin(Character):
         def attack(self, enemy):
             enemy.health -= self.power
             print("The goblin does %d damage to you." % self.power)
@@ -54,8 +46,8 @@ def main():
                  print("The goblin is dead.")
 
 
-    hero = Hero()
-    goblin = Goblin()
+    hero = Hero('hero', 10, 5)
+    goblin = Goblin('goblin', 6, 2)
 
 
     while goblin.alive() and hero.alive():

@@ -7,7 +7,8 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 """
 
-# Step 6: Do you see a lot of duplicated or similar code between Hero and Goblin? What if you can share the duplicated code between them? You can by using inheritance! Create a new class called Character and make both Hero and Goblin inherit from it.
+# Step 7: The alive methods on Hero and Goblin should be identical. Move it into Character, and remove them from Hero and Goblin - now they can simply inherit it from Character.
+# Step 7: Bonus Challenge: The methods attack and print_status method in Hero and Goblin look almost identical, but not quite. Is it possible to move them into the Character class as well? Give it a try
 
 def main():
 
@@ -17,37 +18,31 @@ def main():
             self.health = health
             self.power = power
 
-    class Hero(Character):
-        def attack(self, enemy):
-            enemy.health -= self.power
-            print("You do %d damage to the goblin." % self.power)
-
         def alive(self):
             return self.health > 0
 
-        def print_status(self):
-            if self.alive():
-                print("You have %d health and %d power." % (self.health, self.power))
-            else:
-                print("You are dead.")
-
-    class Goblin(Character):
         def attack(self, enemy):
             enemy.health -= self.power
-            print("The goblin does %d damage to you." % self.power)
-
-        def alive(self):
-            return self.health > 0
+            if self.name == 'hero':
+                print("You do %d damage to the goblin." % self.power)
+            else:
+                print("The goblin does %d damage to you." % self.power)
 
         def print_status(self):
             if self.alive():
-                print("The goblin has %d health and %d power." % (self.health, self.power))
+                if self.name == 'hero':
+                    print("You have %d health and %d power." % (self.health, self.power))
+                else:
+                    print("The goblin has %d health and %d power." % (self.health, self.power))
             else:
-                 print("The goblin is dead.")
+                if self.name == 'hero':
+                    print("You are dead.")
+                else:
+                    print("The goblin is dead.")
 
 
-    hero = Hero('hero', 10, 5)
-    goblin = Goblin('goblin', 6, 2)
+    hero = Character('hero', 10, 5)
+    goblin = Character('goblin', 6, 2)
 
 
     while goblin.alive() and hero.alive():

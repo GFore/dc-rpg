@@ -7,7 +7,7 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 """
 
-# Step 1: Make a Hero class to store the health and power of the hero, and make a Goblin class to store the health and power of the goblin. Use a hero object in place of the variables hero_health and hero_power and use a goblin object in place of the variables goblin_health and goblin_power all through out the app.
+# Step 2: Take the code for the hero attacking the goblin and extract it into a method (call it attack) of the Hero class. Replace the existing code with a call to the attack method. Hint: attack should take in the goblin (enemy) as a parameter: hero.attack(goblin)
 
 def main():
 
@@ -21,6 +21,10 @@ def main():
         def __init__(self):
             self.health = 10
             self.power = 5
+
+        def attack(self, enemy):
+            enemy.health -= self.power
+            print("You do %d damage to the goblin." % self.power)
 
     class Goblin:
         def __init__(self):
@@ -41,10 +45,8 @@ def main():
         print("3. flee")
         print("> ", end='')
         user_input = input()
-        if user_input == "1":
-            # Hero attacks goblin
-            goblin.health -= hero.power
-            print("You do %d damage to the goblin." % hero.power)
+        if user_input == "1":               # Hero attacks goblin
+            hero.attack(goblin)
             if goblin.health <= 0:
                 print("The goblin is dead.")
         elif user_input == "2":

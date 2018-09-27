@@ -7,11 +7,7 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 """
 
-# Step 4: Refactor the while condition:
-#       while goblin.health > 0 and hero.health > 0:
-# to
-#       while goblin.alive() and hero.alive():
-# The health checks should be moved to within the alive methods of Hero and Goblin respectively.
+# Step 5: Take the code for printing the health status of the hero and move it into a method called print_status of Hero. Do the same for the goblin.
 
 def main():
 
@@ -33,6 +29,12 @@ def main():
         def alive(self):
             return self.health > 0
 
+        def print_status(self):
+            if self.alive():
+                print("You have %d health and %d power." % (self.health, self.power))
+            else:
+                print("You are dead.")
+
     class Goblin:
         def __init__(self):
             self.health = 6
@@ -45,13 +47,20 @@ def main():
         def alive(self):
             return self.health > 0
 
+        def print_status(self):
+            if self.alive():
+                print("The goblin has %d health and %d power." % (self.health, self.power))
+            else:
+                 print("The goblin is dead.")
+
+
     hero = Hero()
     goblin = Goblin()
 
 
     while goblin.alive() and hero.alive():
-        print("You have %d health and %d power." % (hero.health, hero.power))
-        print("The goblin has %d health and %d power." % (goblin.health, goblin.power))
+        hero.print_status()
+        goblin.print_status()
         print()
         print("What do you want to do?")
         print("1. fight goblin")
@@ -61,8 +70,7 @@ def main():
         user_input = input()
         if user_input == "1":               # Hero attacks goblin
             hero.attack(goblin)
-            if not goblin.alive():
-                print("The goblin is dead.")
+            if not goblin.alive(): goblin.print_status()
         elif user_input == "2":
             pass
         elif user_input == "3":
@@ -73,7 +81,6 @@ def main():
 
         if goblin.alive():               # Goblin attacks hero
             goblin.attack(hero)
-            if not hero.alive():
-                print("You are dead.")
+            if not hero.alive(): hero.print_status()
 
 main()
